@@ -1,9 +1,34 @@
-import inspect
+import turtle
 
 
-def check_pc_specs(gpu, ram, cpu):
-    """ამოწმებს კომპიუტერის მონაცემებს"""
-    return 0
+def draw_tree(branch_length, t):
+    # გაჩერების პირობა (ძალიან წვრილ ტოტებს აღარ ვხატავთ)
+    if branch_length > 5:
+        t.forward(branch_length)  # 1. მივდივართ წინ (ვხატავთ ტოტს)
 
-print(inspect.getdoc(check_pc_specs))
-print(inspect.signature(check_pc_specs))
+        t.right(20)  # ვტრიალდებით მარჯვნივ 20 გრადუსით
+        draw_tree(branch_length - 15, t)  # 2. რეკურსია: ვხატავთ მარჯვენა შვილ ტოტს
+
+        t.left(40)  # ვტრიალდებით მარცხნივ 40 გრადუსით (20-ით ვსწორდებით და 20-ით მარცხნივ გავდივართ)
+        draw_tree(branch_length - 15, t)  # 3. რეკურსია: ვხატავთ მარცხენა შვილ ტოტს
+
+        t.right(20)  # ვსწორდებით საწყის პოზიციაზე
+        t.backward(branch_length)  # 4. ვბრუნდებით უკან, ძირში (რომ სხვა ტოტების ხატვა გავაგრძელოთ)
+
+
+# --- კუს და ეკრანის მომზადება ---
+t = turtle.Turtle()
+my_win = turtle.Screen()
+
+t.left(90)  # კუ თავიდან იყურება მარჯვნივ, ამიტომ ზემოთ ვატრიალებთ
+t.up()  # კალამს ვწევთ, რომ ხაზი არ დატოვოს
+t.backward(100)  # ეკრანის ცენტრიდან ცოტა ქვემოთ ჩამოვდივართ
+t.down()  # კალამს ვდებთ ფურცელზე
+t.color("green")  # ფერი
+t.speed(0)  # 0 ნიშნავს უსწრაფეს ხატვას
+
+# ფუნქციის გამოძახება (საწყისი ტოტის სიგრძე არის 75)
+draw_tree(100, t)
+
+# ეკრანი არ გაითიშება, სანამ არ დავაკლიკებთ
+my_win.exitonclick()

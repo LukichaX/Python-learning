@@ -11,4 +11,11 @@ groupedByCategory = df.groupby("Category")["Total_Sales"].mean()
 
 filtered = df[df["Total_Sales"] > 4000]
 
-print(groupedByCategory)
+
+
+
+summary = df.groupby("Category")["Total_Sales"].agg(["sum", "count"])
+
+sorted_df = df.sort_values(by="Total_Sales", ascending=False)
+
+print(sorted_df)
